@@ -1,14 +1,12 @@
 package main
 
 import (
-	"fmt"
 	"image/color"
 	_ "image/png"
 	"log"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
-	"gonum.org/v1/gonum/mat"
 )
 
 var width, height int
@@ -43,6 +41,15 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	// Write your game's rendering.
 
 	//ebitenutil.DrawLine(screen, x1, y1, x2, y2, colors[0])
+
+	p[0] = Vector{-50, -50, 0}
+	p[1] = Vector{50, -50, 0}
+	p[2] = Vector{50, 50, 0}
+	p[3] = Vector{-50, 50, 0}
+
+	for i := 0; i < len(p); i++ {
+		ebitenutil.DrawCircle(screen, p[i].X, p[i].Y, 5.0, colors[0])
+	}
 
 	x1 := s[0].X
 	y1 := s[0].Y
@@ -104,13 +111,6 @@ func setup() {
 func main() {
 
 	setup()
-
-	zero := mat.NewDense(3, 1, []float64{10, 10, 10})
-	projection := mat.NewDense(2, 3, []float64{1, 0, 0, 0, 1, 0})
-	var p mat.Dense
-	p.Mul(projection, zero)
-
-	fmt.Println(p[0], p[1])
 
 	//c := mat.Dot(projection.At(),zero)
 
